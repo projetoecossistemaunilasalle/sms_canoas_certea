@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CERTEA em Rede</title>
+<meta name="description" content="Cuidado, orientação e informação para sua jornada.">
+<style>
+:root{
+  --bg:#E9EEEC;--surface:#F8FAF9;--white:#fff;--navy:#10244A;--muted:#657A90;
+  --green:#168B77;--green-dark:#107665;--line:#E0E8E5;--blue:#167CC4;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--navy);font-family:Arial,Helvetica,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{width:100%;max-width:1280px;margin:24px auto;min-height:calc(100vh - 48px);background:var(--surface);border-radius:30px;box-shadow:0 18px 60px rgba(15,76,74,.12);overflow:hidden}
+header{position:sticky;top:0;z-index:40;border-bottom:1px solid #E2E9E6;background:rgba(248,250,249,.95);backdrop-filter:blur(10px)}
+.header-inner{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+.logo{display:flex;align-items:center;gap:12px;border:0;background:none;color:var(--navy);text-align:left}
+.logo-mark{width:44px;height:44px;border-radius:14px;background:#E7F4EF;display:grid;place-items:center}
+.logo-title{font-size:17px;font-weight:800;line-height:20px}.logo-sub{font-size:15px;font-weight:600;line-height:20px;color:#55708A}
+nav.desktop{display:flex;gap:4px}
+.nav-btn{border:0;background:transparent;border-radius:12px;padding:10px 16px;font-size:12px;font-weight:700;color:#63778A}
+.nav-btn.active{background:#E7F1EE;color:#0F4C4A}
+.nav-btn:hover{background:#fff;color:#123F55}
+.user-actions{display:flex;gap:8px}
+.circle-btn{position:relative;width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:#17365F;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1px solid #E0E8E5;display:grid;place-items:center}
+.dot{position:absolute;right:8px;top:7px;width:7px;height:7px;border-radius:50%;background:#D83C55}
+.avatar{background:#DDE8E5}
+main.content{padding:32px 40px 112px}
+.hero{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(135deg,#EEF8F4,#fff 55%,#EDF5FC);padding:40px}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.eyebrow{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#1B8A78}
+.hero h1{font-size:43px;line-height:1.08;letter-spacing:-.03em;margin:12px 0 16px;font-weight:800}
+.hero p{max-width:570px;font-size:16px;line-height:24px;color:#5B7189;margin:0}
+.primary{margin-top:24px;border:0;border-radius:12px;background:var(--green);color:#fff;padding:14px 20px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:12px}
+.primary:hover{background:var(--green-dark)}
+.orb{position:absolute;border-radius:50%;display:block}
+.orb.a{width:330px;height:330px;right:-70px;top:-90px;background:#CDEDE4}
+.orb.b{width:210px;height:210px;right:40px;top:60px;background:#DCEBFA}
+.orb.c{width:180px;height:180px;right:180px;bottom:-80px;background:#FBE6B8}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.card{border:1px solid var(--line);background:#fff;border-radius:22px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.summary{width:100%;padding:16px;text-align:left;display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;border-radius:22px;transition:.2s}
+.summary:hover,.quick:hover,.material:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.07)}
+.icon-box{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;flex:none}
+.green{background:#E6F4EE;color:#16866F}.blue{background:#E8F2FA;color:#277BB4}.amber{background:#FFF4DB;color:#D18A0B}
+.summary-info{min-width:0;flex:1}.label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#7A8B96}.title{margin-top:4px;font-size:15px;font-weight:800;color:#123F55}.detail{margin-top:4px;font-size:12px;color:#657B8C}
+section{scroll-margin-top:100px}
+.section{margin-top:56px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.section h2{font-size:26px;margin:4px 0 0;font-weight:800;letter-spacing:-.02em}
+.section-desc{font-size:14px;color:var(--muted);margin:4px 0 0}
+.outline{border:1px solid #D5E1DD;background:#fff;color:#155F58;border-radius:12px;padding:10px 16px;font-size:12px;font-weight:700}
+.quick-grid{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.quick{border:1px solid var(--line);background:#fff;border-radius:22px;padding:20px;text-align:left;transition:.2s}
+.quick h3{font-size:15px;margin:16px 0 4px}.quick p{font-size:12px;line-height:20px;color:#647A8E;margin:0}.access{display:flex;justify-content:space-between;margin-top:16px;font-size:12px;font-weight:700;color:#315A70}
+.search{margin-top:20px;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #DCE6E2;border-radius:12px;padding:12px 16px;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+.search input{width:100%;border:0;outline:0;background:transparent;color:var(--navy);font-size:14px}
+.filters{display:flex;gap:8px;overflow:auto;margin-top:16px;padding-bottom:4px}
+.filter{white-space:nowrap;border:1px solid #DCE6E2;background:#fff;color:#63778A;border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700}
+.filter.active{background:#123F55;color:#fff}
+.material-grid{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.material{overflow:hidden;text-align:left;border:1px solid var(--line);background:#fff;border-radius:22px;padding:0;transition:.2s}
+.material-top{height:125px;display:grid;place-items:center}
+.material-icon{width:64px;height:64px;border-radius:22px;background:rgba(255,255,255,.8);display:grid;place-items:center;color:#123F55}
+.material-body{padding:16px}.pill{display:inline-block;border-radius:999px;background:#EEF4F1;color:#276258;padding:5px 10px;font-size:10px;font-weight:700}.duration{float:right;font-size:10px;color:#81909A}.material h3{font-size:15px;line-height:20px;margin:12px 0 0}.material p{font-size:12px;line-height:20px;color:#647A8E;margin:8px 0 0}.view{margin-top:14px;color:#176B62;font-size:12px;font-weight:700}
+.empty{text-align:center;padding:40px;border:1px dashed #CBD9D5;border-radius:16px;background:#fff;margin-top:20px}
+.news{margin-top:20px;display:flex;width:100%;overflow:hidden;border:1px solid var(--line);background:#fff;border-radius:22px;text-align:left;padding:0}
+.news-art{width:220px;min-height:170px;background:#FBE7E8;display:grid;place-items:center}.news-art>div{width:80px;height:80px;border-radius:24px;background:#F6B7C0;color:#A8324A;display:grid;place-items:center}.news-text{flex:1;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.news-text h3{margin:8px 0;font-size:18px}.news-text p{max-width:600px;font-size:14px;line-height:24px;color:#647A8E;margin:0}
+.network{background:#EAF4F8;border-radius:26px;padding:32px}.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}.network-card{background:#fff;border:1px solid #D6E4EA;border-radius:16px;padding:20px}.num{width:36px;height:36px;border-radius:50%;background:#123F55;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700}.network-card h3{font-size:14px;margin:16px 0 4px}.network-card p{font-size:12px;line-height:20px;color:#657B8D;margin:0}
+.contact{display:flex;align-items:center;gap:20px;background:#EEF6FC;border-radius:26px;padding:32px}.contact-icon{width:56px;height:56px;border-radius:16px;background:#D5E9FA;color:#167CC4;display:grid;place-items:center}.contact-copy{flex:1}.contact h2{font-size:20px;margin:4px 0}.contact p{font-size:14px;color:#62788D;margin:4px 0}.contact .primary{margin:0;background:#167CC4}.contact .primary:hover{background:#1069A8}
+.mobile-nav{display:none}
+.modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(16,36,74,.4);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{width:100%;max-width:500px;max-height:90vh;overflow:auto;background:#fff;border-radius:26px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.close-row{text-align:right}.close{width:36px;height:36px;border:0;border-radius:50%;background:#F0F4F2;color:#60736E}.modal h2{font-size:25px;margin:20px 0 0}.modal-desc{font-size:14px;line-height:24px;color:#647A8E;margin:8px 0}.modal-item{border:1px solid #E0E8E5;border-radius:16px;padding:16px;margin-top:12px}.modal-item.green-bg{background:#F0F8F5}.modal-item h3{margin:6px 0;font-size:18px}.modal-item p{font-size:14px;color:#5D7282;margin:6px 0}.modal-primary{width:100%;margin-top:20px;border:0;border-radius:12px;background:#123F55;color:#fff;padding:12px;font-weight:700}
+textarea{width:100%;resize:none;border:1px solid #DCE6E2;border-radius:16px;background:#F8FAF9;padding:16px;outline:0;margin-top:8px}
+textarea:focus{border-color:#168B77}
+@media(max-width:900px){
+ .app{margin:0;border-radius:0;min-height:100vh}.header-inner{padding:0 20px}.desktop{display:none!important}
+ main.content{padding:24px 20px 100px}.hero{padding:28px}.hero h1{font-size:34px}.orb{display:none}
+ .summary-grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(2,1fr)}.material-grid{grid-template-columns:repeat(2,1fr)}
+ .network-grid{grid-template-columns:1fr}.news-art{width:180px}.contact{flex-wrap:wrap}
+ .mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);left:0;right:0;bottom:0;z-index:50;background:rgba(248,250,249,.96);border-top:1px solid #DCE6E2;backdrop-filter:blur(10px)}
+ .mobile-btn{border:0;background:transparent;padding:10px 4px;color:#718494;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}.mobile-btn.active{color:#167CC4;font-weight:800}
+}
+@media(max-width:600px){
+ .quick-grid,.material-grid{grid-template-columns:1fr 1fr}.hero h1{font-size:30px}.section h2{font-size:23px}
+ .section-head{align-items:flex-start;flex-direction:column}.news{flex-direction:column}.news-art{width:100%;height:150px;min-height:0}.contact{padding:24px}
+ .contact .primary{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="header-inner">
+<button class="logo" onclick="go('inicio')">
+<div class="logo-mark">
+<svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+<circle cx="16" cy="7" r="5" fill="#168B77"/><circle cx="8" cy="13" r="5" fill="#2B82D4"/><circle cx="24" cy="13" r="5" fill="#2B82D4"/><circle cx="11" cy="21" r="5" fill="#E95C70"/><circle cx="21" cy="21" r="5" fill="#F0A91E"/><path d="M16 12c-4.5 0-8 3.1-8 7 0 3.8 3.5 6 8 9 4.5-3 8-5.2 8-9 0-3.9-3.5-7-8-7Z" fill="#1E7A6F"/>
+</svg></div><div><div class="logo-title">CERTEA</div><div class="logo-sub">em Rede</div></div>
+</button>
+<nav class="desktop">
+<button class="nav-btn active" data-section="inicio" onclick="go('inicio')">Início</button>
+<button class="nav-btn" data-section="conteudos" onclick="go('conteudos')">Conteúdos</button>
+<button class="nav-btn" data-section="rede" onclick="go('rede')">Rede</button>
+<button class="nav-btn" data-section="comunicacao" onclick="go('comunicacao')">Comunicação</button>
+</nav>
+<div class="user-actions">
+<button class="circle-btn" aria-label="Notificações" onclick="openModal('notifications')">🔔<span class="dot"></span></button>
+<button class="circle-btn avatar" aria-label="Perfil" onclick="openModal('profile')">◯</button>
+</div>
+</div></header>
+
+<main class="content">
+<section id="inicio">
+<div class="hero"><div class="hero-content">
+<div class="eyebrow">CERTEA em Rede</div>
+<h1>Cuidado, orientação<br>e informação para<br>sua jornada.</h1>
+<p>Um espaço para encontrar informações, materiais educativos e orientações para você e sua família.</p>
+<button class="primary" onclick="go('conteudos')">Explorar conteúdos <span>›</span></button>
+</div><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+
+<div class="summary-grid">
+<button class="summary" onclick="openModal('appointments')"><div class="icon-box green">📅</div><div class="summary-info"><div class="label">Seus agendamentos</div><div class="title">Próximo atendimento</div><div class="detail">Terapia Ocupacional · 12/09 · 14h00</div></div><b>›</b></button>
+<button class="summary" onclick="openModal('tasks')"><div class="icon-box blue">✓</div><div class="summary-info"><div class="label">Suas tarefas</div><div class="title">2 pendências</div><div class="detail">Confira o que precisa fazer</div></div><b>›</b></button>
+<button class="summary" onclick="openMaterial(1)"><div class="icon-box amber">💡</div><div class="summary-info"><div class="label">Dica do dia</div><div class="title">Rotina mais previsível</div><div class="detail">Veja uma orientação rápida</div></div><b>›</b></button>
+</div>
+
+<div class="section">
+<div class="eyebrow">Acesso rápido</div><h2>O que você precisa hoje?</h2><p class="section-desc">Acesse rapidamente as principais áreas.</p>
+<div class="quick-grid">
+<button class="quick" onclick="filterCategory('Orientação parental')"><div class="icon-box green">📖</div><h3>Orientações</h3><p>Informações de forma simples</p><div class="access">Acessar <span>›</span></div></button>
+<button class="quick" onclick="go('rede')"><div class="icon-box blue">⌘</div><h3>Fluxos da rede</h3><p>Entenda os próximos passos</p><div class="access">Acessar <span>›</span></div></button>
+<button class="quick" onclick="go('conteudos')"><div class="icon-box" style="background:#FBE9E9;color:#C33E59">▶</div><h3>Conteúdos</h3><p>Vídeos, cartilhas e guias</p><div class="access">Acessar <span>›</span></div></button>
+<button class="quick" onclick="openMaterial(1)"><div class="icon-box amber">💡</div><h3>Dicas do dia</h3><p>Rotina e bem-estar</p><div class="access">Acessar <span>›</span></div></button>
+</div></div>
+</section>
+
+<section id="conteudos" class="section">
+<div class="section-head"><div><div class="eyebrow">Biblioteca educativa</div><h2>Conteúdos para você</h2><p class="section-desc">Materiais preparados para apoiar sua família.</p></div><button class="outline" onclick="resetFilters()">Ver todos</button></div>
+<div class="search">🔎<input id="search" placeholder="Buscar materiais educativos..." oninput="renderMaterials()"></div>
+<div class="filters" id="filters"></div>
+<div class="material-grid" id="materials"></div><div id="empty" class="empty" style="display:none"><b>Nenhum material encontrado</b><p>Tente alterar a busca ou o filtro selecionado.</p></div>
+</section>
+
+<section class="section">
+<div class="section-head"><div><div class="eyebrow">Atualizações</div><h2>Novidades para você</h2></div><button class="outline" onclick="go('conteudos')">Ver todas</button></div>
+<button class="news" onclick="openMaterial(3)"><div class="news-art"><div>📖</div></div><div class="news-text"><div><div class="eyebrow" style="color:#B53C53">Novo conteúdo</div><h3>Comunicação no dia a dia</h3><p>Estratégias simples para estimular a comunicação durante atividades cotidianas.</p></div><b>›</b></div></button>
+</section>
+
+<section id="rede" class="section"><div class="network">
+<div class="eyebrow" style="color:#2573A5">Rede de atendimento</div><h2>Entenda como a rede funciona</h2><p class="section-desc">Conheça os caminhos de atendimento e entenda como os diferentes serviços podem participar do acompanhamento.</p>
+<div class="network-grid">
+<div class="network-card"><div class="num">01</div><h3>Informação</h3><p>Conheça os serviços e informações disponíveis.</p></div>
+<div class="network-card"><div class="num">02</div><h3>Acolhimento</h3><p>Encontre orientação para compreender os próximos passos.</p></div>
+<div class="network-card"><div class="num">03</div><h3>Acompanhamento</h3><p>Conheça as possibilidades de acompanhamento.</p></div>
+</div></div></section>
+
+<section id="comunicacao" class="section"><div class="contact">
+<div class="contact-icon">💬</div><div class="contact-copy"><div class="eyebrow" style="color:#2677AE">Comunicação</div><h2>Fale com o CERTEA</h2><p>Envie uma dúvida para nossa equipe.</p></div><button class="primary" onclick="openModal('contact')">Entrar em contato</button>
+</div></section>
+</main>
+
+<nav class="mobile-nav">
+<button class="mobile-btn active" data-section="inicio" onclick="go('inicio')">⌂<span>Início</span></button>
+<button class="mobile-btn" data-section="conteudos" onclick="go('conteudos')">📖<span>Conteúdos</span></button>
+<button class="mobile-btn" data-section="rede" onclick="go('rede')">⌘<span>Rede</span></button>
+<button class="mobile-btn" data-section="comunicacao" onclick="go('comunicacao')">💬<span>Contato</span></button>
+</nav>
+</div>
+
+<div id="modalRoot"></div>
+<script>
+const materials=[
+{id:1,title:"Como preparar a criança para uma consulta",description:"Orientações práticas para tornar a consulta mais previsível e tranquila.",category:"Orientação parental",type:"Cartilha",duration:"8 min",color:"green"},
+{id:2,title:"Organizando a rotina em casa",description:"Estratégias simples para criar uma rotina mais organizada e previsível.",category:"Rotina",type:"Guia",duration:"10 min",color:"blue"},
+{id:3,title:"Conhecendo a rede de atendimento",description:"Entenda os serviços e os caminhos disponíveis para acompanhamento.",category:"A rede",type:"Vídeo",duration:"6 min",color:"blue"},
+{id:4,title:"Comunicação no dia a dia",description:"Estratégias para estimular a comunicação durante atividades cotidianas.",category:"Orientação parental",type:"Cartilha",duration:"12 min",color:"green"},
+{id:5,title:"Conheça seus direitos",description:"Informações importantes sobre educação, saúde e assistência.",category:"Direitos",type:"Guia",duration:"15 min",color:"amber"},
+{id:6,title:"Momentos de sobrecarga",description:"Como identificar sinais e organizar o ambiente nesses momentos.",category:"Rotina",type:"Cartilha",duration:"9 min",color:"coral"}
+];
+const categories=["Todos","Orientação parental","Rotina","Direitos","A rede"];let currentCategory="Todos";
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function go(id){document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});document.querySelectorAll("[data-section]").forEach(b=>b.classList.toggle("active",b.dataset.section===id))}
+function filterCategory(c){currentCategory=c;renderFilters();renderMaterials();go("conteudos")}
+function resetFilters(){currentCategory="Todos";document.getElementById("search").value="";renderFilters();renderMaterials()}
+function renderFilters(){document.getElementById("filters").innerHTML=categories.map(c=>`<button class="filter ${c===currentCategory?"active":""}" onclick="filterCategory('${c.replace(/'/g,"\\'")}')">${c}</button>`).join("")}
+function icon(type){return type==="Cartilha"?"📖":type==="Guia"?"▤":type==="Vídeo"?"▶":"🎧"}
+function renderMaterials(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const list=materials.filter(m=>(currentCategory==="Todos"||m.category===currentCategory)&&`${m.title} ${m.description} ${m.category} ${m.type}`.toLowerCase().includes(q));
+ document.getElementById("materials").innerHTML=list.map(m=>`<button class="material" onclick="openMaterial(${m.id})"><div class="material-top" style="background:${m.color==="green"?"#E8F5F0":m.color==="blue"?"#E9F3FA":m.color==="amber"?"#FFF4DC":"#FBE9EA"}"><div class="material-icon">${icon(m.type)}</div></div><div class="material-body"><span class="pill">${esc(m.type)}</span><span class="duration">${esc(m.duration)}</span><h3>${esc(m.title)}</h3><p>${esc(m.description)}</p><div class="view">Ver material　›</div></div></button>`).join("");
+ document.getElementById("empty").style.display=list.length?"none":"block";
+}
+function openMaterial(id){const m=materials.find(x=>x.id===id);if(!m)return;showModal(`<div class="icon-box green">${icon(m.type)}</div><div style="margin-top:20px"><span class="pill">${esc(m.type)}</span> <span class="pill" style="color:#60736E">${esc(m.category)}</span></div><h2>${esc(m.title)}</h2><p class="modal-desc">${esc(m.description)}</p><div class="modal-item" style="background:#F3F7F5"><b>Sobre o conteúdo</b><p>Este espaço poderá apresentar o conteúdo completo do material educativo, arquivos, orientações, vídeos e outros recursos disponibilizados pelo CERTEA.</p></div><p style="font-size:12px;color:#657873">◷ ${esc(m.duration)}</p><button class="modal-primary" onclick="closeModal()">Fechar</button>`)}
+function openModal(type){
+ let html="";
+ if(type==="appointments")html=`<div class="icon-box green">📅</div><h2>Seus agendamentos</h2><p class="modal-desc">Confira seus próximos atendimentos e os detalhes de cada agendamento.</p><div class="modal-item green-bg"><b>Próximo atendimento</b><h3>Terapia Ocupacional</h3><p>📅 12 de setembro de 2026</p><p>◷ 14h00</p></div><div class="modal-item"><b>Próximo atendimento</b><h3>Acompanhamento familiar</h3><p>📅 19 de setembro de 2026</p><p>◷ 10h30</p></div><button class="modal-primary" onclick="closeModal()">Fechar</button>`;
+ if(type==="tasks")html=`<div class="icon-box blue">✓</div><h2>Suas tarefas</h2><p class="modal-desc">Confira as atividades que aguardam sua atenção.</p><div class="modal-item">✓　Responder questionário de acompanhamento</div><div class="modal-item">✓　Confirmar próximo atendimento</div><button class="modal-primary" onclick="closeModal()">Fechar</button>`;
+ if(type==="notifications")html=`<div class="icon-box blue">🔔</div><h2>Notificações</h2><p class="modal-desc">Confira as novidades disponíveis para você.</p><div class="modal-item"><b>Novo material disponível</b><p>Foi publicada uma nova cartilha na biblioteca.</p></div><div class="modal-item"><b>Atendimento próximo</b><p>Seu próximo atendimento está agendado.</p></div><button class="modal-primary" onclick="closeModal()">Fechar</button>`;
+ if(type==="profile")html=`<div class="icon-box blue">◯</div><h2>Minha conta</h2><p class="modal-desc">Informações do seu perfil.</p><div class="modal-item"><b>Perfil</b><h3>Usuário CERTEA</h3><p>Família</p></div><button class="modal-primary" onclick="closeModal()">Fechar</button>`;
+ if(type==="contact")html=`<div class="icon-box blue">💬</div><h2>Fale com o CERTEA</h2><p class="modal-desc">Envie sua dúvida para nossa equipe.</p><label><b>Sua mensagem</b><textarea id="message" rows="5" placeholder="Digite sua dúvida..."></textarea></label><button class="modal-primary" onclick="sendMessage()">Enviar mensagem</button>`;
+ showModal(html);
+}
+function showModal(content){document.getElementById("modalRoot").innerHTML=`<div class="modal-backdrop" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="close-row"><button class="close" onclick="closeModal()">×</button></div>${content}</div></div>`}
+function closeModal(){document.getElementById("modalRoot").innerHTML=""}
+function sendMessage(){closeModal();alert("Mensagem enviada com sucesso.")}
+renderFilters();renderMaterials();
+</script>
+</body>
+</html>
